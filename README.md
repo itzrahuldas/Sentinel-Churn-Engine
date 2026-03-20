@@ -13,56 +13,59 @@ The system follows a modular architecture designed for scalability and maintaina
 
 ```mermaid
 graph TD
-    A[Raw Data (SQLite)] -->|Extraction| B(Polars ETL Pipeline)
-    B -->|Cleaning & Engineering| C{Feature Store}
-    C -->|Training| D[XGBoost Classifier]
-    D -->|Experiment Tracking| E[MLflow]
-    D -->|Artifacts| F[Model Registry]
-    C -->|Inference| G[Streamlit Dashboard]
+    A["Raw Data - SQLite"] -->|Extraction| B["Polars ETL Pipeline"]
+    B -->|Cleaning & Engineering| C["Feature Store"]
+    C -->|Training| D["XGBoost Classifier"]
+    D -->|Experiment Tracking| E["MLflow"]
+    D -->|Artifacts| F["Model Registry"]
+    C -->|Inference| G["Streamlit Dashboard"]
     F --> G
-    G -->|Interactive UI| H[End User]
+    G -->|Interactive UI| H["End User"]
 ```
 
 ## 🚀 Features
 
-*   **Automated ETL**: Consumes raw data from SQLite, handles missing values, and generates features like `tenure` and `total_charges`.
-*   **Advanced Modeling**: Utilizes XGBoost with `ColumnTransformer` pipelines for handling categorical and numerical data.
-*   **Experiment Tracking**: Integrated MLflow logging for metrics and hyperparameters.
-*   **Interactive Dashboard**:
-    *   **Executive Overview**: High-level KPIs and churn distribution charts.
-    *   **Customer Inspector**: Real-time "what-if" analysis and risk scoring.
-*   **DevOps Ready**: Dockerized application with CI/CD workflows and Makefile automation.
+- **Automated ETL**: Consumes raw data from SQLite, handles missing values, and generates features like `tenure` and `total_charges`.
+- **Advanced Modeling**: Utilizes XGBoost with `ColumnTransformer` pipelines for handling categorical and numerical data.
+- **Experiment Tracking**: Integrated MLflow logging for metrics and hyperparameters.
+- **Interactive Dashboard**:
+  - **Executive Overview**: High-level KPIs and churn distribution charts.
+  - **Customer Inspector**: Real-time "what-if" analysis and risk scoring.
+- **DevOps Ready**: Dockerized application with CI/CD workflows and Makefile automation.
 
 ## 🛠️ Setup & Installation
 
 ### Prerequisites
-*   Python 3.9+
-*   Docker (Optional)
+
+- Python 3.9+
+- Docker (Optional)
 
 ### Quick Start (Local)
 
-1.  **Clone the Repository**
-    ```bash
-    git clone https://github.com/yourusername/sentinel-churn-engine.git
-    cd sentinel-churn-engine
-    ```
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/yourusername/sentinel-churn-engine.git
+   cd sentinel-churn-engine
+   ```
 
-2.  **Install Dependencies**
-    ```bash
-    make setup
-    ```
+2. **Install Dependencies**
+   ```bash
+   make setup
+   ```
 
-3.  **Train the Model**
-    ```bash
-    make train
-    ```
-    *This generates the artifacts in `src/models/saved/`.*
+3. **Train the Model**
+   ```bash
+   make train
+   ```
 
-4.  **Launch the Dashboard**
-    ```bash
-    make app
-    ```
-    Access the app at `http://localhost:8501`.
+   This generates the artifacts in `src/models/saved/`.
+
+4. **Launch the Dashboard**
+   ```bash
+   make app
+   ```
+
+   Access the app at `http://localhost:8501`.
 
 ### Docker Run
 
@@ -85,21 +88,17 @@ docker run -p 8501:8501 sentinel-engine
 
 ## 📂 Project Structure
 
-```
+```text
+Sentinel-Churn-Engine/
 ├── data/               # Raw and processed data
 ├── src/
 │   ├── ingestion/      # Data loading and mocking
-│   ├── processing/     # Cleaning and Feature Engineering
+│   ├── processing/     # Cleaning and feature engineering
 │   ├── models/         # Training scripts
-│   └── dashboard/      # Streamlit application
+│   └── dashboard/      # Streamlit app
 ├── tests/              # Unit tests
 ├── Makefile            # Automation scripts
-├── Dockerfile          # Container config
-└── pyproject.toml      # Dependencies
+├── Dockerfile
+├── README.md
+└── .gitignore
 ```
-
-## 🤝 Contributing
-Contributions are welcome! Please open an issue or submit a pull request.
-
-## 📄 License
-This project is licensed under the MIT License.
